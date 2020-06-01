@@ -42,13 +42,16 @@ sogne_codes.append(9181)
 print(sogne_codes)
 
 
-for i in range(len(sogne_codes)):
-    temp_string = requests.get('https://dawa.aws.dk/sogne/{}?format=geojson'.format(sogne_codes[i]))
+for sogne_code in sogne_codes:
+    temp_string = requests.get(
+        'https://dawa.aws.dk/sogne/{}?format=geojson'.format(sogne_code)
+    )
+
     if temp_string.status_code == 200:
         print(temp_string.json())
         geojson_sogn.append(temp_string.json())
-        kbh_kom_sogn_kode.append('101' + str(sogne_codes[i]))
-        fre_kom_sogn_kode.append('147' + str(sogne_codes[i]))
+        kbh_kom_sogn_kode.append('101' + str(sogne_code))
+        fre_kom_sogn_kode.append('147' + str(sogne_code))
 
 for i in range(len(geojson_sogn)):
     temp_dump = json.dumps(geojson_sogn[i]['geometry'])
